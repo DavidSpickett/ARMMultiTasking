@@ -42,6 +42,9 @@ config.suffixes = ['.log']
 config.test_source_root = os.path.dirname(__file__)
 config.test_exec_root = os.path.join(config.test_source_root, '..')
 
+# Exclude cmake related directory
+config.excludes.add('CMakeFiles')
+
 config.excludes.add('shell')
 # lower() because Github Actions config is case sensitive
 # but local use may not be
