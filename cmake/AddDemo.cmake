@@ -28,19 +28,26 @@ function(__add_demo NAME TEST_TYPE MAX_THREADS)
     VERBATIM)
   add_dependencies(make_demos ${NAME})
 
-  add_custom_target(run_${NAME})
-  add_dependencies(run_${NAME} ${NAME})
+  if (NOT BP_LOWER STREQUAL "raspi4")
+    add_custom_target(run_${NAME})
+    add_dependencies(run_${NAME} ${NAME})
 
-  add_custom_command(TARGET run_${NAME} POST_BUILD
-    COMMAND eval "${QEMU}${NAME}"
-   VERBATIM)
+    add_custom_command(TARGET run_${NAME} POST_BUILD
+      COMMAND eval "${QEMU}${NAME}"
+     VERBATIM)
 
-  add_custom_target(debug_${NAME})
-  add_dependencies(debug_${NAME} ${NAME})
+    add_custom_target(debug_${NAME})
+    add_dependencies(debug_${NAME} ${NAME})
 
-  add_custom_command(TARGET debug_${NAME} POST_BUILD
-    COMMAND eval "${QEMU}${NAME} -s -S"
-    VERBATIM)
+    add_custom_command(TARGET debug_${NAME} POST_BUILD
+      COMMAND eval "${QEMU}${NAME} -s -S"
+      VERBATIM)
+  else()
+    # Generate kernel images
+    add_custom_command(TARGET ${NAME} POST_BUILD
+      COMMAND eval "${PREFIX}objcopy -O binary ${NAME} kernel8.img"
+     VERBATIM)
+  endif()
 
   if(NOT TEST_TYPE STREQUAL "none")
     # This could be done with add_test, but then we wouldn't see the failure output.

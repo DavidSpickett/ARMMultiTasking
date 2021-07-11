@@ -32,9 +32,11 @@ elseif( BP_LOWER STREQUAL "aarch64" )
   include(src/hw/aarch64_virt/CMakeLists.txt)
 elseif( BP_LOWER STREQUAL "thumb" )
   include(src/hw/thumb_lm3s6965evb/CMakeLists.txt)
+elseif( BP_LOWER STREQUAL "raspi4" )
+  include(src/hw/raspi4/CMakeLists.txt)
 else()
   message(FATAL_ERROR "Invalid platform \"${BP_LOWER}\". \
-  Expected one of \"arm\", \"thumb\", \"aarch64\".")
+  Expected one of \"arm\", \"thumb\", \"aarch64\", \"raspi4\".")
 endif()
 
 set( CMAKE_C_COMPILER "${PREFIX}gcc" )

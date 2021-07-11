@@ -20,6 +20,8 @@ function(__add_loadable PARENT NAME PIE TEST)
   elseif( BP_LOWER STREQUAL "aarch64" )
     # Due to ardp alignment etc., we need more room
     set( CODE_PAGE_SIZE 11264 )
+  elseif( BP_LOWER STREQUAL "raspi4" )
+    set( CODE_PAGE_SIZE 11264 )
   else()
     message(FATAL_ERROR "Can't set CODE_PAGE_SIZE for \"${BP_LOWER}\".")
   endif()

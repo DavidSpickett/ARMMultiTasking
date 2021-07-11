@@ -1,0 +1,6 @@
+#ifndef PORT_RASPI4_MMIO_H
+#define PORT_RASPI4_MMIO_H
+
+#define MMIO_BASE 0xFE000000
+
+#endif /* PORT_RASPI4_MMIO_H */
